@@ -14,14 +14,7 @@ BLUE='\033[0;34m'
 ORANGE='\033[0;33m'
 
 function banner () {
-	echo -e "${BLUE}";
-	echo "_   _ ___________ _____ _   _ _   ____  ___";
-	echo "| | | |_   _| ___ \  ___| \ | | | | |  \/  |";
-	echo "| |_| | | | | |_/ / |__ |  \| | | | | .  . |";
-	echo "|  _  | | | | ___ \  __|| . \` | | | | |\/| |";
-	echo "| | | | | | | |_/ / |___| |\  | |_| | |  | |";
-	echo "\_| |_/ \_/ \____/\____/\_| \_/\___/\_|  |_/";
-	echo -e "\n${ORANGE}By Solomon Sklash - solomonsklash@0xfeed.io ${NC}\n";
+	echo -e "\n${ORANGE}HTB-Enumeration Script ${NC}\n";
 }
 
 function usage () {
