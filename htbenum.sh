@@ -115,7 +115,7 @@ function update () {
 		wget -nv "https://raw.githubusercontent.com/Anon-Exploiter/SUID3NUM/master/suid3num.py" -O suid3num.py;
 		# Exploit suggestion scripts
 		wget -nv "https://raw.githubusercontent.com/belane/linux-soft-exploit-suggester/master/linux-soft-exploit-suggester.py" -O les-soft.py;
-		wget -nv "https://raw.githubusercontent.com/offensive-security/exploit-database/master/files_exploits.csv" -O files_exploits.csv;
+		wget -nv "https://gitlab.com/exploit-database/exploitdb/-/raw/main/files_exploits.csv" -O files_exploits.csv;
 		wget -nv "https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh" -O les.sh;
 		echo -e "${GREEN}[i] Update complete!${NC}";
 		exit 0;
