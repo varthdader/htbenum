@@ -100,7 +100,7 @@ shift $((OPTIND -1));
 
 function update () {
 		# Get all scripts, overwrite if they already exist
-		echo -e "${GREEN}[i] Updating all tools...${NC}";
+		echo -e "${GREEN}[i] Updating all Linux tools...${NC}";
 		# Enumeration scripts
 		wget -nv "https://github.com/diego-treitos/linux-smart-enumeration/raw/master/lse.sh" -O lse.sh;
 		wget -nv "https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh" -O linenum.sh;
@@ -113,6 +113,7 @@ function update () {
 		wget -nv "https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh" -O les.sh;
   		wget -nv "https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh" -O linpeas.sh;
 
+		echo -e "${GREEN}[i] Updating all Windows tools...${NC}";
     		# Adding Windows Enumeration Scripts
       		wget -nv "https://github.com/peass-ng/PEASS-ng/releases/latest/download/winpeas.bat" -O winpeas.bat
       		wget -nv "https://raw.github.com/enjoiz/Privesc/master/privesc.ps1" -O privesc.ps1
