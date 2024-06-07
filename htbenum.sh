@@ -112,6 +112,14 @@ function update () {
 		wget -nv "https://gitlab.com/exploit-database/exploitdb/-/raw/main/files_exploits.csv" -O files_exploits.csv;
 		wget -nv "https://raw.githubusercontent.com/mzet-/linux-exploit-suggester/master/linux-exploit-suggester.sh" -O les.sh;
   		wget -nv "https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh" -O linpeas.sh;
+
+    		# Adding Windows Enumeration Scripts
+      		wget -nv "https://github.com/peass-ng/PEASS-ng/releases/latest/download/winpeas.bat" -O winpeas.bat
+      		wget -nv "https://raw.github.com/enjoiz/Privesc/master/privesc.ps1" -O privesc.ps1
+      		wget -nv "https://github.com/pentestmonkey/windows-privesc-check/raw/master/windows-privesc-check2.exe" -O winprivesc-check.exe
+      		wget -nv "https://raw.github.com/411Hall/JAWS/master/jaws-enum.ps1" -O jaws-enum.ps1
+		wget -nv "http://raw.github.com/rasta-mouse/Sherlock/master/Sherlock.ps1" -O sherlock.ps1
+	
 		echo -e "${GREEN}[i] Update complete!${NC}";
 		exit 0;
 }
@@ -189,6 +197,8 @@ function download () {
 				wget -nv -t 2 "http://$IP:$PORT/les-soft.py" -O "$DIR"/les-soft.py;
 				chmod +x "$DIR"/les-soft.py;
 				wget -nv -t 2 "http://$IP:$PORT/files_exploits.csv" -O "$DIR"/files_exploits.csv;
+    
+
 		fi
 }
 
